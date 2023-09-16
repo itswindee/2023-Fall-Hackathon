@@ -49,8 +49,9 @@ public class ContainerPacking {
     public static void printContainerContents(Container container, String containerName) {
         System.out.println(containerName + " Contents:");
         for (Item item : container.items) {
-            System.out.println("Item: " + item.length + "x" + item.height + "x" + item.width + ", Weight: " + item.weight);
+            System.out.println("Item: " + item.length + " x " + item.height + " x " + item.width + ", Weight: " + item.weight);
         }
         System.out.println("Total Weight: " + container.getTotalWeight());
     }
 }
+
