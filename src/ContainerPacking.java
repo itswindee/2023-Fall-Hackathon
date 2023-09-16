@@ -1,26 +1,45 @@
+import java.util.Scanner;
 import java.util.Stack;
 
 public class ContainerPacking {
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
         Container boxTruck = new Container(24, 8, 8, 26000);
         Container shippingContainer = new Container(40, 8.5, 8, 59200);
-        Container storageUnit = new Container(20, 8, 10, Double.POSITIVE_INFINITY); // No weight limit for storage unit
-        Item pallet = new Item(48, 5, 40, 4600);
+        Container storageUnit = new Container(20, 8, 10, Double.POSITIVE_INFINITY);
 
-        packItems(boxTruck, pallet, 3);
-        packItems(shippingContainer, pallet, 4);
-        packItems(storageUnit, pallet, 2);
+
+
+        //item dimensions
+        System.out.println("Please make sure you enter as decimals.");
+        System.out.println("Enter the dimensions for the item that needs to be packed in this order: (length height width weight) ");
+        double itemLength = scan.nextDouble();
+        double itemHeight = scan.nextDouble();
+        double itemWidth = scan.nextDouble();
+        double itemMaxWeight = scan.nextDouble();
+        Item pallet = new Item(itemLength,itemHeight,itemWidth,itemMaxWeight);
+
+        System.out.println("Enter the quantity of items to pack:");
+        int quantity = scan.nextInt();
+
+        packItems(boxTruck, pallet, quantity);
+        packItems(shippingContainer, pallet, quantity);
+        packItems(storageUnit, pallet, quantity);
 
         printContainerContents(boxTruck, "Box Truck");
         printContainerContents(shippingContainer, "Shipping Container");
         printContainerContents(storageUnit, "Storage Unit");
+
+        scan.close();
+
     }
 
     public static void packItems(Container container, Item item, int quantity) {
         for (int i = 0; i < quantity; i++) {
             if (container.canFit(item)) {
                 container.items.push(item);
-            } else {
+            }
+            else {
                 System.out.println("Item does not fit in the container.");
                 break;
             }
